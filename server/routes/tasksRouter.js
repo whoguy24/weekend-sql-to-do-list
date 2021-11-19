@@ -42,4 +42,21 @@ router.post('/', (req, res) => {
     });
 });
 
+// DELETE ROUTE
+router.delete('/:id', (req, res) => {
+    let taskID = req.params.id;
+    let queryText = `
+      DELETE FROM "tasks"
+        WHERE "id"=$1;
+    `;
+    let queryValues = [ taskID ];
+    pool.query(queryText, queryValues)
+    .then((result) => {
+        res.sendStatus(200);
+    })
+    .catch((error) => {
+        res.sendStatus(500);
+    })
+});
+
 module.exports = router;
