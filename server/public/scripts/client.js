@@ -4,6 +4,7 @@ function onReady() {
     console.log('jQuery has loaded successfully.');
     $('#button-create').on('click', createTask);
     $('#table-tasks').on('click', '.button-delete', deleteTask);
+    $('#table-tasks').on('click', '.checkbox-completed', handleCheckboxClick);
     clearInputs();
     displayTasks();
 }
@@ -18,7 +19,7 @@ function displayTasks () {
             $('#table-tasks').append(`
                 <tr>
                     <td>
-                        <input type="checkbox" id="checkbox-completed">
+                        <input type="checkbox" class="checkbox-completed" data-id=${task.id} data-completed=${task.completed}>
                     </td>
                     <td>
                         <p>${task.task}</p>
@@ -84,6 +85,33 @@ function deleteTask() {
         displayTasks();
     })
 };
+
+function handleCheckboxClick () {
+    let taskID = $(this).data('id');
+    let completed = $(this).data('data-completed');
+    if (!completed) {
+        completed = true;
+    } 
+    else {
+        completed = false;
+    } 
+    $(this).data('data-completed', completed )
+    toggleTaskComplete(taskID, completed);
+}
+
+function toggleTaskComplete(taskID, completed) {
+    console.log(taskID);
+    console.log(completed);
+    
+    // $.ajax({
+    //   type: 'PUT',
+    //   url: `/tasks/${taskID}`,
+    //   data: { completed: completed }
+    // }).then((res) => {
+    //   displayTasks();
+    // }).catch((err) => {
+    // })
+}
 
 function formatDate(dateString) {
     let date = new Date(dateString);

@@ -59,4 +59,25 @@ router.delete('/:id', (req, res) => {
     })
 });
 
+// PUT ROUTE
+router.put('/:id', (req, res) => {
+    let taskID = req.params.id;
+    let queryText = `
+      UPDATE "tasks"
+        SET "completed"=$1
+        WHERE "id"=$2;
+    `;
+    let queryValues = [
+      completed,
+      taskID
+    ]
+    pool.query(queryText, queryValues)
+      .then((result) => {
+        res.sendStatus(200);
+      })
+      .catch((error) => {
+        res.sendStatus(500);
+        })
+  });
+
 module.exports = router;
