@@ -3,6 +3,7 @@ $(document).ready(onReady);
 function onReady() {
     console.log('jQuery has loaded successfully.');
     $('#button-create').on('click', createTask);
+    $('#table-tasks').on('click', '.button-delete', deleteTask);
     clearInputs();
     displayTasks();
 }
@@ -35,7 +36,7 @@ function displayTasks () {
                         <p>${task.priority}</p>
                     </td>
                     <td>
-                        <button id="button-delete">Delete</button
+                        <button class="button-delete" data-id="${task.id}">Delete</button
                     </td>
                 </tr>
             `);
@@ -73,6 +74,16 @@ function createTask() {
         });
     }
 }
+
+function deleteTask() {
+    let taskID = $(this).data('id');
+    $.ajax({
+         type: 'DELETE',
+        url: `/tasks/${taskID}`
+    }).then((response) => {
+        displayTasks();
+    })
+};
 
 function formatDate(dateString) {
     let date = new Date(dateString);
