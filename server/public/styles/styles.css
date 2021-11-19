@@ -6,9 +6,7 @@ table {
     background: lightgray;
     border: 1px solid grey;
     border-collapse: collapse;
-    margin-top: 24px;
-    max-width: 100%;
-    min-width: 600px;
+    margin: 24px;
 }
 
 thead {
@@ -25,7 +23,11 @@ td, th {
 }
 
 .td-text-field {
-    min-width: 400px;
+    min-width: 100px;
+}
+
+.div-inputs {
+    margin: 24px;
 }
 
 tbody tr:nth-child(odd) {

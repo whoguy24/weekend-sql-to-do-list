@@ -11,13 +11,20 @@
 </head>
 <body>
 
-    <h1>To-Do List</h1>
+    <div class="div-inputs">
+        <h1>To-Do List</h1>
+        <input type="text" id="input-task" placeholder="Task">
+        <input type="text" id="input-comments" placeholder="Comments">
+        <input type="date" id="input-date-due">
+        <select id="input-priority" placeholder="Priority">
+            <option value="High">High</option>
+            <option value="Normal">Normal</option>
+            <option value="Low">Low</option>
+        </select>
+        <button id="button-create">Create Task</button>
+    </div>
 
-    <input type="text" id="input-task" placeholder="Task">
-    <input type="text" id="input-comments" placeholder="Comments">
-    <input type="date" id="input-date-due">
-    <input type="text" id="input-priority" placeholder="Priority">
-    <button id="button-create">Create Task</button>
+
 
     <table>
         <thead>
@@ -43,6 +50,13 @@
         </thead>
         <tbody id="table-tasks">
         </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <p></p>
+                </td>
+            </tr>
+        </tfoot>
     </table>
     
 </body>
