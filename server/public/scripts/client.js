@@ -3,6 +3,7 @@ $(document).ready(onReady);
 function onReady() {
     console.log('jQuery has loaded successfully.');
     $('#button-create').on('click', createTask);
+    clearInputs();
     displayTasks();
 }
 
@@ -42,22 +43,35 @@ function displayTasks () {
     });
 }
 
-function createTask() {
-    let task = {
-         task: $('#input-task').val(),
-         comments: $('#input-comments').val(),
-         date_assigned: formatDate(new Date()),
-         date_due: $('#input-date-due').val(),
-         priority: $('#input-priority').val()
+function validateInputs() {
+    if (!$('#input-task').val() || !$('#input-date-due').val() || !$('#input-priority').val()) {
+        console.log('Could not create task: required data could not be found.');
+        alert('Please populate all required fields before proceeding.');
+        return false;
     }
-    $.ajax({
-         type: 'POST',
-         url: '/tasks',
-         data: task
-    }).then((response) => {
-        clearInputs();
-        displayTasks();
-    });
+    else {
+        return true;
+    }
+}
+
+function createTask() {
+    if (validateInputs()) {
+        let task = {
+            task: $('#input-task').val(),
+            comments: $('#input-comments').val(),
+            date_assigned: formatDate(new Date()),
+            date_due: $('#input-date-due').val(),
+            priority: $('#input-priority').val()
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/tasks',
+            data: task
+        }).then((response) => {
+            clearInputs();
+            displayTasks();
+        });
+    }
 }
 
 function formatDate(dateString) {
