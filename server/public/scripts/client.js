@@ -28,10 +28,10 @@ function displayTasks () {
                     <td>
                         <input type="checkbox" class="checkbox-completed" data-id=${task.id} data-completed=${task.completed}${checkbox}>
                     </td>
-                    <td>
+                    <td class="td-text-field">
                         <p>${task.task}</p>
                     </td>
-                    <td>
+                    <td class="td-text-field">
                         <p>${task.comments}</p>
                     </td>
                     <td>
