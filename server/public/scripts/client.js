@@ -41,8 +41,32 @@ function displayTasks () {
     });
 }
 
+function createTask() {
+    const task = {
+         artist: $('#artist').val(),
+    }
+    $.ajax({
+         type: 'POST',
+         url: '/task',
+         data: task
+    }).then((response) => {
+        //  $('#artist').val(''),
+        //  $('#track').val(''),
+        // $('#rank').val(''),
+        // $('#published').val('')
+        // renderSongs();
+    });
+}
+
 function formatDate(dateString) {
     let date = new Date(dateString);
     let dateFormatted = `${(date.getMonth() + 1)}/${date.getDate()}/${date.getFullYear()}`;
     return dateFormatted;
+}
+
+function clearInputs() {
+    $('#input-task').val(''),
+    $('#input-comments').val(''),
+    $('#input-date-due').val(''),
+    $('#input-priority').val('')
 }
