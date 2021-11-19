@@ -16,10 +16,17 @@ function displayTasks () {
     }).then((tasks) => {
         $("#table-tasks").empty();
         for (let task of tasks) {
+            let checkbox = '';
+            if (!task.completed) {
+                checkbox = ''
+            }
+            else {
+                checkbox = ' checked'
+            }
             $('#table-tasks').append(`
                 <tr>
                     <td>
-                        <input type="checkbox" class="checkbox-completed" data-id=${task.id} data-completed=${task.completed}>
+                        <input type="checkbox" class="checkbox-completed" data-id=${task.id} data-completed=${task.completed}${checkbox}>
                     </td>
                     <td>
                         <p>${task.task}</p>
@@ -88,7 +95,7 @@ function deleteTask() {
 
 function handleCheckboxClick () {
     let taskID = $(this).data('id');
-    let completed = $(this).data('data-completed');
+    let completed = $(this).data('completed');
     if (!completed) {
         completed = true;
     } 
@@ -100,17 +107,15 @@ function handleCheckboxClick () {
 }
 
 function toggleTaskComplete(taskID, completed) {
-    console.log(taskID);
-    console.log(completed);
-    
-    // $.ajax({
-    //   type: 'PUT',
-    //   url: `/tasks/${taskID}`,
-    //   data: { completed: completed }
-    // }).then((res) => {
-    //   displayTasks();
-    // }).catch((err) => {
-    // })
+    $.ajax({
+      type: 'PUT',
+      url: `/tasks/${taskID}`,
+      data: { completed: completed }
+    }).then((result) => {
+      displayTasks();
+    }).catch((error) => {
+        console.log(error);
+    })
 }
 
 function formatDate(dateString) {

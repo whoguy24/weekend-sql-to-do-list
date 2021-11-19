@@ -5,7 +5,7 @@ const router = express.Router();
 // GET ROUTE
 router.get('/', (req, res) => {
     console.log('GET /tasks');
-    const sqlText = 'SELECT * FROM tasks;';
+    const sqlText = 'SELECT * FROM tasks ORDER BY id;';
     pool.query(sqlText)
     .then((dbResult) => {
         res.send(dbResult.rows);
@@ -62,21 +62,22 @@ router.delete('/:id', (req, res) => {
 // PUT ROUTE
 router.put('/:id', (req, res) => {
     let taskID = req.params.id;
+    let completed = req.body.completed;
     let queryText = `
       UPDATE "tasks"
-        SET "completed"=$1
+      SET "completed"=$1
         WHERE "id"=$2;
     `;
     let queryValues = [
-      completed,
-      taskID
+        completed,
+        taskID
     ]
     pool.query(queryText, queryValues)
-      .then((result) => {
-        res.sendStatus(200);
-      })
-      .catch((error) => {
-        res.sendStatus(500);
+        .then((result) => {
+            res.sendStatus(200);
+        })
+        .catch((error) => {
+            res.sendStatus(500);
         })
   });
 
