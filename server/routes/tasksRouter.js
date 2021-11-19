@@ -9,10 +9,36 @@ router.get('/', (req, res) => {
     pool.query(sqlText)
     .then((dbResult) => {
         res.send(dbResult.rows);
-        res.sendStatus(200);
     })
     .catch((dbErr) => {
         res.sendStatus(500);
+    });
+});
+
+// POST ROUTE
+router.post('/', (req, res) => {
+    const task = req.body;
+    const queryText = `
+        INSERT INTO "tasks"
+            ("task", "comments", "date_assigned", "date_due", "priority")
+        VALUES
+            ($1, $2, $3, $4, $5);
+    `;
+    const queryValues = [
+        task.task,
+        task.comments,
+        task.date_assigned,
+        task.date_due,
+        task.priority
+    ];
+    pool.query(queryText, queryValues)
+    .then((result) => {
+        res.sendStatus(201);
+    })
+    .catch((error) => {
+        res.sendStatus(500);
+        console.log(error);
+         
     });
 });
 
