@@ -31,9 +31,6 @@ function displayTasks () {
                     <td class="td-text-field">
                         <p>${task.task}</p>
                     </td>
-                    <td class="td-text-field">
-                        <p>${task.comments}</p>
-                    </td>
                     <td>
                         <p>${formatDate(task.date_assigned)}</p>
                     </td>
