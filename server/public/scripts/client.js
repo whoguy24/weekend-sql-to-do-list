@@ -2,6 +2,7 @@ $(document).ready(onReady);
 
 function onReady() {
     console.log('jQuery has loaded successfully.');
+    $('#button-create').on('click', createTask);
     displayTasks();
 }
 
@@ -42,25 +43,26 @@ function displayTasks () {
 }
 
 function createTask() {
-    const task = {
-         artist: $('#artist').val(),
+    let task = {
+         task: $('#input-task').val(),
+         comments: $('#input-comments').val(),
+         date_assigned: formatDate(new Date()),
+         date_due: $('#input-date-due').val(),
+         priority: $('#input-priority').val()
     }
     $.ajax({
          type: 'POST',
-         url: '/task',
+         url: '/tasks',
          data: task
     }).then((response) => {
-        //  $('#artist').val(''),
-        //  $('#track').val(''),
-        // $('#rank').val(''),
-        // $('#published').val('')
-        // renderSongs();
+        clearInputs();
+        displayTasks();
     });
 }
 
 function formatDate(dateString) {
     let date = new Date(dateString);
-    let dateFormatted = `${(date.getMonth() + 1)}/${date.getDate()}/${date.getFullYear()}`;
+    let dateFormatted = `${(date.getMonth() + 1)}-${date.getDate()}-${date.getFullYear()}`;
     return dateFormatted;
 }
 

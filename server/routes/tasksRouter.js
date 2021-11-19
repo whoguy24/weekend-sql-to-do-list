@@ -9,7 +9,6 @@ router.get('/', (req, res) => {
     pool.query(sqlText)
     .then((dbResult) => {
         res.send(dbResult.rows);
-        res.sendStatus(200);
     })
     .catch((dbErr) => {
         res.sendStatus(500);
@@ -38,6 +37,8 @@ router.post('/', (req, res) => {
     })
     .catch((error) => {
         res.sendStatus(500);
+        console.log(error);
+         
     });
 });
 
